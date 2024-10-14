@@ -45,13 +45,31 @@ console.log(first name);
 // 3 const
 
 // 1 var variable
-var test = "im developer in ASZ";
-console.log(test); //old value
+// var test = "im developer in ASZ";
+// console.log(test); //old value
 
-var test = "im tester";
-console.log(test); //new vale
+// var test = "im tester";
+// console.log(test); //new vale
 
-test = "Im Msc Student!"; //overiding the old value
-console.log(test); //overided value
+// test = "Im Msc Student!"; //overiding the old value
+// console.log(test); //overided value
 
 // 2 let and const will come in advance js
+// let test = "im developer in ASZ";
+// console.log(test); //old value
+
+// // let test = "im tester";
+// // console.log(test); //new vale
+
+// test = "Im Msc Student!"; //overiding the old value
+// console.log(test); //overided value
+
+// 2 let and const will come in advance js
+const c = "im developer in ASZ";
+console.log(c); //old value
+
+// let test = "im tester";
+// console.log(test); //new vale
+
+// c = "Im Msc Student!"; //overiding the old value
+// console.log(c); //overided value

@@ -1,3 +1,4 @@
+"use strict"
 // data type
 
 var name = "node js"; //variables
@@ -14,6 +15,8 @@ console.log(name);
 //         null
 // Array    []
 // object    {}
+// bigint
+// Symbol
 
 // statically Typed
 // String java = "programming"//String
@@ -29,15 +32,18 @@ console.log(name);
 //1. premitive data-type
 var a = "im string";
 console.log("STRING:: " + a);
+console.log(typeof a);
 
 var b = 12;
 console.log("Number or Integer::", b);
 
 var c = 12.5;
 console.log("FLOAT::", c);
+console.log(typeof c);
 
 var d = "s";
 console.log("CHAR::", d);
+console.log(typeof d);
 
 var e = true;
 var f = false;

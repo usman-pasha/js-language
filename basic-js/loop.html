@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Event Loop Diagram (Step by Step)</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #e0f7fa;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #00796b;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      max-width: 1000px;
+      position: relative;
+    }
+
+    .phase {
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      width: 140px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.5s ease;
+      position: relative;
+      font-size: 16px;
+      color: #00796b;
+      font-weight: bold;
+    }
+
+    .phase.active {
+      background-color: #00796b;
+      color: #fff;
+      border-color: #004d40;
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .phase h2 {
+      font-size: 18px;
+    }
+
+    .arrow {
+      display: block;
+      margin: 10px;
+      font-size: 24px;
+      color: #00796b;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    #log {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      width: 100%;
+      max-width: 1000px;
+      background-color: #fff;
+      border-radius: 12px;
+      height: 200px;
+      overflow-y: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #log ul {
+      list-style-type: none;
+      padding: 0;
+      font-family: 'Courier New', monospace;
+    }
+
+    #log ul li {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      color: #004d40;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #004d40;
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .arrows {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .arrows .arrow {
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript Event Loop Diagram (Step by Step)</h1>
+
+  <div class="container">
+    <div class="phase" id="call-stack">
+      <h2>Call Stack</h2>
+    </div>
+
+    <div class="arrows">
+      <span class="arrow">➡️</span>
+    </div>
+
+    <div class="phase" id="event-loop">
+      <h2>Event Loop</h2>
+    </div>
+
+    <div class="arrows">
+      <span class="arrow">➡️</span>
+    </div>
+
+    <div class="phase" id="microtasks">
+      <h2>Microtasks</h2>
+    </div>
+
+    <div class="arrows">
+      <span class="arrow">➡️</span>
+    </div>
+
+    <div class="phase" id="timers">
+      <h2>Timers</h2>
+    </div>
+
+    <div class="arrows">
+      <span class="arrow">➡️</span>
+    </div>
+
+    <div class="phase" id="poll">
+      <h2>Poll</h2>
+    </div>
+
+    <div class="arrows">
+      <span class="arrow">➡️</span>
+    </div>
+
+    <div class="phase" id="check">
+      <h2>Check</h2>
+    </div>
+  </div>
+
+  <button id="start-loop">Start Step-by-Step Simulation</button>
+
+  <div id="log">
+    <ul id="output-list"></ul>
+  </div>
+
+  <script>
+    document.getElementById("start-loop").addEventListener("click", () => {
+      const phases = {
+        'call-stack': document.getElementById("call-stack"),
+        'event-loop': document.getElementById("event-loop"),
+        'microtasks': document.getElementById("microtasks"),
+        'timers': document.getElementById("timers"),
+        'poll': document.getElementById("poll"),
+        'check': document.getElementById("check")
+      };
+
+      const outputList = document.getElementById("output-list");
+      outputList.innerHTML = '';  // Clear previous output
+
+      function logMessage(message) {
+        const li = document.createElement("li");
+        li.textContent = message;
+        outputList.appendChild(li);
+      }
+
+      // Utility function to activate a phase visually
+      function activatePhase(phase) {
+        for (let key in phases) {
+          phases[key].classList.remove("active");
+        }
+        phases[phase].classList.add("active");
+      }
+
+      // Sequence of phases with delays
+      setTimeout(() => {
+        activatePhase('call-stack');
+        logMessage('Start of script');
+      }, 500);
+
+      setTimeout(() => {
+        activatePhase('event-loop');
+        logMessage('Event Loop checks the Call Stack');
+      }, 1500);
+
+      setTimeout(() => {
+        activatePhase('microtasks');
+        logMessage('Processing Microtasks (e.g., Promises)');
+        Promise.resolve().then(() => {
+          logMessage('Promise resolved (Microtask)');
+        });
+      }, 2500);
+
+      setTimeout(() => {
+        activatePhase('timers');
+        logMessage('Timers Phase (e.g., setTimeout)');
+        setTimeout(() => {
+          logMessage('setTimeout executed after 0ms');
+        }, 0);
+      }, 3500);
+
+      setTimeout(() => {
+        activatePhase('poll');
+        logMessage('Poll Phase (waiting for I/O)');
+      }, 4500);
+
+      setTimeout(() => {
+        activatePhase('check');
+        logMessage('Check Phase (setImmediate or other I/O callbacks)');
+      }, 5500);
+
+      setTimeout(() => {
+        activatePhase('call-stack');
+        logMessage('End of script');
+      }, 6500);
+    });
+  </script>
+
+</body>
+</html>
