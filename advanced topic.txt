@@ -1,0 +1,13 @@
+1. scope /closure/lexical enviroment/curring/IIFE
+
+2. object: deep & shallow copy/this/symbols
+
+3. functions: call/apply/bind/decorators/debounce/throttle/memoization
+
+4. prototypes: inheritance,constructor,polyfills
+
+5. class: derived class/private/protected members/getter/setters
+
+6. AsyncJs: Callback/Callback Hell/promise/async-await/eventloop
+
+7. iterators: iterables/generators/maps/sets/infinite iterators 
